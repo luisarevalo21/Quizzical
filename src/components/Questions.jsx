@@ -22,7 +22,7 @@ const Questions = () => {
 
   const fetch = async () => {
     const res = await fetchData();
-    console.log("res inside of questions", res);
+    // console.log("res inside of questions", res);
     setQuestions(res);
   };
 
@@ -33,8 +33,8 @@ const Questions = () => {
   };
 
   const handleClick = (index, id) => {
-    console.log("clicked", index, id);
-    console.log(questions);
+    // console.log("clicked", index, id);
+    // console.log(questions);
     setQuestions(prevQuestions => {
       return prevQuestions.map(question => {
         if (question.questionId === id) {
@@ -46,12 +46,28 @@ const Questions = () => {
 
   const handleCheckAnswers = () => {
     let correctAnswers = 0;
-    questions.forEach(question => {
-      if (question.selected === question.answerIndex) {
-        correctAnswers++;
-      }
+
+    setQuestions(pervQuestions => {
+      const results = pervQuestions.map(question => {
+        if (question.selected === question.answerIndex) {
+          correctAnswers++;
+          return { ...question, correct: "correct" };
+        } else {
+          return { ...question, correct: "incorrect" };
+        }
+      });
+      setCorrectAnswers(correctAnswers);
+      return results;
+
+      // console.log("corect answers", correctAnswers);
     });
-    setCorrectAnswers(correctAnswers);
+    // console.log(correctAnswers);
+    // questions.forEach(question => {
+    //   if (question.selected === question.answerIndex) {
+    //     correctAnswers++;
+    //   }
+    // });
+    // setCorrectAnswers(correctAnswers);
   };
   // console.log(questions);
   const questionsList = questions.map(question => {
@@ -70,6 +86,8 @@ const Questions = () => {
         id={question.questionId}
         clickTriggered={handleClick}
         selected={question.selected}
+        answerIndex={question.answerIndex}
+        correct={question.correct}
       />
     );
   });

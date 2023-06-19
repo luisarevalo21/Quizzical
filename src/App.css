@@ -113,5 +113,13 @@ body {
   margin-right: 1rem;
   /* margin: 1rem; */
 }
+
+.correct {
+  background-color: #94d7a2;
+}
+.incorrect {
+  background-color: #f8bcbc;
+  opacity: 0.5;
+}
 /* yellow color FFFAD1
 blue color DEEBF8 */
